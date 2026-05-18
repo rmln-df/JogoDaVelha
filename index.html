@@ -31,7 +31,7 @@ justify-content:center;
 min-height:100vh;
 overflow:hidden;
 padding:15px;
-color:#fff;
+color:#ff8800;
 background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#111);
 background-size:400% 400%;
 animation:bg 12s ease infinite
@@ -73,14 +73,14 @@ color:#94a3b8
 .btn-jogar-splash,.btn-reiniciar,.btn-som,.modal-content button,.menu-btn{
 border:none;
 cursor:pointer;
-color:#fff;
+color:#ff1;
 font-weight:bold
 }
 
 .btn-jogar-splash{
 padding:14px 40px;
 border-radius:50px;
-font-size:1.2rem;
+font-size:3.2rem;
 background:linear-gradient(45deg,#3b82f6,#1d4ed8)
 }
 
@@ -95,7 +95,7 @@ max-width:500px
 }
 
 h1{
-font-size:2.5rem;
+font-size:3.5rem;
 margin-bottom:15px
 }
 
@@ -121,7 +121,7 @@ gap:6px
 }
 
 .placar b{
-font-size:1.4rem
+font-size:2.4rem
 }
 
 /* CONTROLES */
@@ -166,7 +166,7 @@ width:100%;
 height:108px;
 border-radius:10px;
 background:#2563eb;
-font-size:1.4rem
+font-size:2.4rem
 }
 
 .btn-som{
@@ -290,9 +290,11 @@ START
 <!-- APP -->
 
 <div id="conteudo-jogo">
+  
+  <!--
 
 <h1>Jogo da Velha</h1>
-
+-->
 <div class="placar">
 <span>🏆 Você<b id="pUser">0</b></span>
 <span>🤖 IA<b id="pIA">0</b></span>
@@ -340,7 +342,7 @@ Reiniciar<br>partida
 </button>
 
 <button class="btn-som" id="btnSom" onclick="alternarSom()">
-🔊 Som Ligado
+🔊Som Ligado
 </button>
 
 </div>
@@ -468,7 +470,7 @@ document.getElementById('simboloUsuario').value;
 
 status.innerHTML=
 turnoAtual===usuario
-?'Sua vez'
+?'🙋🏻 Sua vez'
 :'🤖 Máquina pensando...';
 }
 
