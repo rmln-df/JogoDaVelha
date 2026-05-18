@@ -31,7 +31,7 @@ justify-content:center;
 min-height:100vh;
 overflow:hidden;
 padding:15px;
-color:#ff8800;
+color:#ff8;
 background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#111);
 background-size:400% 400%;
 animation:bg 12s ease infinite
@@ -57,7 +57,7 @@ z-index:9999
 }
 
 .splash-titulo{
-font-size:3rem;
+font-size:5rem;
 font-weight:900;
 background:linear-gradient(45deg,var(--cor-x),var(--cor-o));
 -webkit-background-clip:text;
@@ -73,15 +73,129 @@ color:#94a3b8
 .btn-jogar-splash,.btn-reiniciar,.btn-som,.modal-content button,.menu-btn{
 border:none;
 cursor:pointer;
-color:#ff1;
+color:#fff;
 font-weight:bold
 }
 
 .btn-jogar-splash{
+padding:16px 55px;
+border:none;
+border-radius:60px;
+font-size:4.3rem;
+font-weight:800;
+letter-spacing:2px;
+color:#ff8;
+cursor:pointer;
+position:relative;
+overflow:hidden;
+background:
+linear-gradient(
+45deg,
+#2563eb,
+#3b82f6,
+#60a5fa
+);
+
+background-size:300% 300%;
+
+box-shadow:
+0 0 15px rgba(37,99,235,.5),
+0 0 35px rgba(59,130,246,.4);
+
+animation:
+gradienteBtn 5s ease infinite,
+flutuar 2s ease-in-out infinite;
+
+transition:
+transform .2s ease,
+box-shadow .2s ease;
+}
+
+/* BRILHO */
+
+.btn-jogar-splash::before{
+
+content:'';
+
+position:absolute;
+
+top:-50%;
+
+left:-30%;
+
+width:40%;
+
+height:200%;
+
+background:
+rgba(255,255,255,.25);
+
+transform:rotate(25deg);
+
+animation:brilho 2.5s linear infinite;
+}
+
+/* TOQUE */
+
+.btn-jogar-splash:active{
+
+transform:scale(.95);
+
+box-shadow:
+0 0 10px rgba(37,99,235,.5),
+0 0 20px rgba(59,130,246,.3);
+}
+
+/* ANIMAÇÕES */
+
+@keyframes gradienteBtn{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+}
+
+@keyframes brilho{
+
+0%{
+left:-40%;
+}
+
+100%{
+left:140%;
+}
+}
+
+@keyframes flutuar{
+
+0%{
+transform:translateY(0px);
+}
+
+50%{
+transform:translateY(-4px);
+}
+
+100%{
+transform:translateY(0px);
+}
+/* ☝🏻
+}
+.btn-jogar-splash{
 padding:14px 40px;
 border-radius:50px;
-font-size:3.2rem;
+font-size:1.2rem;
 background:linear-gradient(45deg,#3b82f6,#1d4ed8)
+
+*/
 }
 
 /* APP */
@@ -98,6 +212,7 @@ h1{
 font-size:3.5rem;
 margin-bottom:15px
 }
+
 
 /* PLACAR */
 
@@ -121,7 +236,7 @@ gap:6px
 }
 
 .placar b{
-font-size:2.4rem
+font-size:3.4rem
 }
 
 /* CONTROLES */
@@ -148,8 +263,21 @@ position:relative
 width:100%;
 height:50px;
 border-radius:8px;
-background:#b3b3b3;
-font-size:1rem
+background:#ff4400;
+font-size:1.2rem;
+transition:.2s
+}
+
+.menu-btn{
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:0 10px
+}
+
+.menu-btn.ativo{
+background:#2563eb
 }
 
 .menu-select{
@@ -165,7 +293,7 @@ cursor:pointer
 width:100%;
 height:108px;
 border-radius:10px;
-background:#2563eb;
+background:#ff5500;
 font-size:2.4rem
 }
 
@@ -178,7 +306,7 @@ background:#0f766e
 .status{
 margin-bottom:15px;
 min-height:28px;
-font-size:1.2rem;
+font-size:2.2rem;
 font-weight:700
 }
 
@@ -189,7 +317,7 @@ display:grid;
 grid-template-columns:repeat(3,1fr);
 gap:12px;
 width:100%;
-max-width:320px;
+max-width:520px;
 aspect-ratio:1/1
 }
 
@@ -279,70 +407,151 @@ background:linear-gradient(45deg,#10b981,#059669)
 <!-- SPLASH -->
 
 <div id="splash-screen">
-<div class="splash-titulo">JOGO DA VELHA</div>
-<div class="splash-subtitulo">ULTIMATE PRO</div>
 
-<button class="btn-jogar-splash" onclick="inicializarEEntrarNoJogo()">
+<div class="splash-titulo">
+JOGO DA VELHA
+</div>
+
+<div class="splash-subtitulo">
+ULTIMATE PRO
+</div>
+
+<button class="btn-jogar-splash"
+onclick="inicializarEEntrarNoJogo()">
+
 START
+
 </button>
+
 </div>
 
 <!-- APP -->
-
+<!--
 <div id="conteudo-jogo">
-  
-  <!--
 
 <h1>Jogo da Velha</h1>
 -->
 <div class="placar">
-<span>🏆 Você<b id="pUser">0</b></span>
-<span>🤖 IA<b id="pIA">0</b></span>
-<span>🤝 Empates<b id="pEmpate">0</b></span>
+
+<span>
+🏆 Você
+<b id="pUser">0</b>
+</span>
+
+<span>
+🤖 IA
+<b id="pIA">0</b>
+</span>
+
+<span>
+🤝 Empates
+<b id="pEmpate">0</b>
+</span>
+
 </div>
 
 <div class="controles">
 
 <div class="coluna-seletores">
 
-<div class="menu-box">
-<button class="menu-btn">Escolher o jogador</button>
+<!-- JOGADOR -->
 
-<select id="simboloUsuario" class="menu-select" onchange="reiniciarJogo()">
-<option value="X" selected>❌ Vermelho</option>
-<option value="O">🟢 Verde</option>
+<div class="menu-box">
+
+<button class="menu-btn ativo" id="btnJogador">
+Jogador: ❌ 
+</button>
+
+<select
+id="simboloUsuario"
+class="menu-select"
+onchange="alterarJogador();reiniciarJogo()">
+
+<option value="X" selected>
+❌ 
+</option>
+
+<option value="O">
+🟢
+</option>
+
 </select>
+
 </div>
 
-<div class="menu-box">
-<button class="menu-btn">Tipo de jogo</button>
+<!-- MODO -->
 
-<select id="modo" class="menu-select" onchange="reiniciarJogo()">
-<option value="classico" selected>Clássico</option>
-<option value="infinito">Infinito</option>
+<div class="menu-box">
+
+<button class="menu-btn ativo" id="btnModo">
+Modo: Clássico
+</button>
+
+<select
+id="modo"
+class="menu-select"
+onchange="alterarModo();reiniciarJogo()">
+
+<option value="classico" selected>
+Clássico
+</option>
+
+<option value="infinito">
+Infinito
+</option>
+
 </select>
+
 </div>
 
-<div class="menu-box">
-<button class="menu-btn">Nível</button>
+<!-- NÍVEL -->
 
-<select id="dificuldade" class="menu-select">
-<option value="facil">Fácil</option>
-<option value="medio">Médio</option>
-<option value="dificil" selected>Difícil</option>
+<div class="menu-box">
+
+<button class="menu-btn ativo" id="btnNivel">
+Nível: Difícil
+</button>
+
+<select
+id="dificuldade"
+class="menu-select"
+onchange="alterarNivel()">
+
+<option value="facil">
+Fácil
+</option>
+
+<option value="medio">
+Médio
+</option>
+
+<option value="dificil" selected>
+Difícil
+</option>
+
 </select>
+
 </div>
 
 </div>
 
 <div class="area-botoes">
 
-<button class="btn-reiniciar" onclick="reiniciarJogo()">
-Reiniciar<br>partida
+<button class="btn-reiniciar"
+onclick="reiniciarJogo()">
+
+Reiniciar<br>
+partida
+
 </button>
 
-<button class="btn-som" id="btnSom" onclick="alternarSom()">
-🔊Som Ligado
+<button
+class="btn-som"
+id="btnSom"
+onclick="alternarSom()">
+
+🔊 Som Ligado
+
 </button>
 
 </div>
@@ -402,12 +611,15 @@ window.AudioContext||
 window.webkitAudioContext;
 
 const ctx=new AudioContext();
+
 const osc=ctx.createOscillator();
+
 const gain=ctx.createGain();
 
 osc.frequency.value=freq;
 
 osc.connect(gain);
+
 gain.connect(ctx.destination);
 
 gain.gain.value=.08;
@@ -432,6 +644,45 @@ somAtivado
 :'🔇 Som Desligado';
 }
 
+/* BOTÕES INFORMATIVOS */
+
+function alterarJogador(){
+
+const valor=
+document.getElementById('simboloUsuario').value;
+
+document.getElementById('btnJogador').innerHTML=
+valor==='X'
+?'Jogador: ❌ '
+:'Jogador: 🟢';
+}
+
+function alterarModo(){
+
+const valor=
+document.getElementById('modo').value;
+
+document.getElementById('btnModo').innerHTML=
+valor==='classico'
+?'Modo: Clássico'
+:'Modo: Infinito';
+}
+
+function alterarNivel(){
+
+const valor=
+document.getElementById('dificuldade').value;
+
+let texto='';
+
+if(valor==='facil')texto='Fácil';
+if(valor==='medio')texto='Médio';
+if(valor==='dificil')texto='Difícil';
+
+document.getElementById('btnNivel').innerHTML=
+'Nível: '+texto;
+}
+
 /* START */
 
 function inicializarEEntrarNoJogo(){
@@ -439,6 +690,7 @@ function inicializarEEntrarNoJogo(){
 tocarSom(500);
 
 document.getElementById('splash-screen').style.display='none';
+
 document.getElementById('conteudo-jogo').style.display='flex';
 
 atualizarTextoStatus();
@@ -447,30 +699,43 @@ atualizarTextoStatus();
 /* ESTADO */
 
 let tabuleiro=['','','','','','','','',''];
+
 let jogoAtivo=true;
+
 let turnoAtual='X';
 
 let historicoX=[];
+
 let historicoO=[];
 
 const VITORIAS=[
-[0,1,2],[3,4,5],[6,7,8],
-[0,3,6],[1,4,7],[2,5,8],
-[0,4,8],[2,4,6]
+
+[0,1,2],
+[3,4,5],
+[6,7,8],
+
+[0,3,6],
+[1,4,7],
+[2,5,8],
+
+[0,4,8],
+[2,4,6]
+
 ];
 
 /* STATUS */
 
 function atualizarTextoStatus(){
 
-const status=document.getElementById('status');
+const status=
+document.getElementById('status');
 
 const usuario=
 document.getElementById('simboloUsuario').value;
 
 status.innerHTML=
 turnoAtual===usuario
-?'🙋🏻 Sua vez'
+?'Sua vez'
 :'🤖 Máquina pensando...';
 }
 
@@ -499,7 +764,10 @@ atualizarTabuleiro();
 
 if(verificarFim(usuario))return;
 
-turnoAtual=usuario==='X'?'O':'X';
+turnoAtual=
+usuario==='X'
+?'O'
+:'X';
 
 atualizarTextoStatus();
 
@@ -561,7 +829,7 @@ turnoAtual=usuario;
 atualizarTextoStatus();
 }
 
-/* INFINITO */
+/* MODO INFINITO */
 
 function registrarJogada(jogador,i){
 
@@ -576,7 +844,8 @@ jogador==='X'
 h.push(i);
 
 if(
-modo==='infinito' &&
+modo==='infinito'
+&&
 h.length>3
 ){
 
@@ -614,6 +883,7 @@ tabuleiro[i]=maquina;
 if(vitoria(maquina)){
 
 tabuleiro[i]='';
+
 return i;
 }
 
@@ -630,6 +900,7 @@ tabuleiro[i]=usuario;
 if(vitoria(usuario)){
 
 tabuleiro[i]='';
+
 return i;
 }
 
@@ -652,11 +923,13 @@ document.querySelectorAll('.celula');
 c.forEach((el,i)=>{
 
 el.innerHTML='';
+
 el.className='celula';
 
 if(tabuleiro[i]==='X'){
 
 el.innerHTML='❌';
+
 el.classList.add('X');
 
 }else if(tabuleiro[i]==='O'){
@@ -726,7 +999,8 @@ return true;
 }
 
 if(
-document.getElementById('modo').value==='classico'
+document.getElementById('modo').value
+==='classico'
 &&
 tabuleiro.every(c=>c!=='')
 ){
@@ -769,6 +1043,7 @@ c[i].classList.add('vencedora')
 /* MODAL */
 
 function abrirModal(){
+
 document.getElementById('modalFinal')
 .classList.add('mostrar');
 }
@@ -788,12 +1063,15 @@ function reiniciarJogo(){
 tabuleiro=['','','','','','','','',''];
 
 historicoX=[];
+
 historicoO=[];
 
 jogoAtivo=true;
+
 turnoAtual='X';
 
 atualizarTabuleiro();
+
 atualizarTextoStatus();
 
 if(
