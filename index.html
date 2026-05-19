@@ -111,8 +111,6 @@ transform .2s ease,
 box-shadow .2s ease;
 }
 
-/* BRILHO */
-
 .btn-jogar-splash::before{
 
 content:'';
@@ -135,8 +133,6 @@ transform:rotate(25deg);
 animation:brilho 2.5s linear infinite;
 }
 
-/* TOQUE */
-
 .btn-jogar-splash:active{
 
 transform:scale(.95);
@@ -145,8 +141,6 @@ box-shadow:
 0 0 10px rgba(37,99,235,.5),
 0 0 20px rgba(59,130,246,.3);
 }
-
-/* ANIMAÇÕES */
 
 @keyframes gradienteBtn{
 
@@ -187,15 +181,6 @@ transform:translateY(-4px);
 100%{
 transform:translateY(0px);
 }
-/* ☝🏻
-}
-.btn-jogar-splash{
-padding:14px 40px;
-border-radius:50px;
-font-size:1.2rem;
-background:linear-gradient(45deg,#3b82f6,#1d4ed8)
-
-*/
 }
 
 /* APP */
@@ -213,7 +198,6 @@ font-size:3.5rem;
 margin-bottom:15px
 }
 
-
 /* PLACAR */
 
 .placar{
@@ -224,8 +208,7 @@ gap:15px;
 padding:12px;
 margin-bottom:15px;
 border-radius:16px;
-background:var(--glass);
-backdrop-filter:blur(10px)
+background:rgba(255,255,255,.08)
 }
 
 .placar span{
@@ -335,16 +318,20 @@ transition:.2s
 
 .celula.X{
 color:var(--cor-x);
-font-size:3.6rem;
-font-weight:800
+font-size:3.2rem;
+font-weight:900;
+display:flex;
+align-items:center;
+justify-content:center;
+line-height:1;
 }
 
 .celula.O::after{
 content:'';
-width:55%;
-height:55%;
+width:50%;
+height:50%;
 border-radius:50%;
-border:6px solid var(--cor-o)
+border:5px solid var(--cor-o)
 }
 
 .vencedora{
@@ -426,11 +413,9 @@ START
 </div>
 
 <!-- APP -->
-<!--
+
 <div id="conteudo-jogo">
 
-<h1>Jogo da Velha</h1>
--->
 <div class="placar">
 
 <span>
@@ -454,12 +439,10 @@ START
 
 <div class="coluna-seletores">
 
-<!-- JOGADOR -->
-
 <div class="menu-box">
 
 <button class="menu-btn ativo" id="btnJogador">
-Jogador: ❌ 
+Jogador: ❌
 </button>
 
 <select
@@ -468,7 +451,7 @@ class="menu-select"
 onchange="alterarJogador();reiniciarJogo()">
 
 <option value="X" selected>
-❌ 
+❌
 </option>
 
 <option value="O">
@@ -478,8 +461,6 @@ onchange="alterarJogador();reiniciarJogo()">
 </select>
 
 </div>
-
-<!-- MODO -->
 
 <div class="menu-box">
 
@@ -503,8 +484,6 @@ Infinito
 </select>
 
 </div>
-
-<!-- NÍVEL -->
 
 <div class="menu-box">
 
@@ -600,27 +579,27 @@ Jogar Novamente
 
 let somAtivado=true;
 
+const audioCtx =
+new (
+window.AudioContext ||
+window.webkitAudioContext
+)();
+
 function tocarSom(freq=440,d=120){
 
 if(!somAtivado)return;
 
 try{
 
-const AudioContext=
-window.AudioContext||
-window.webkitAudioContext;
+const osc=audioCtx.createOscillator();
 
-const ctx=new AudioContext();
-
-const osc=ctx.createOscillator();
-
-const gain=ctx.createGain();
+const gain=audioCtx.createGain();
 
 osc.frequency.value=freq;
 
 osc.connect(gain);
 
-gain.connect(ctx.destination);
+gain.connect(audioCtx.destination);
 
 gain.gain.value=.08;
 
@@ -628,7 +607,6 @@ osc.start();
 
 setTimeout(()=>{
 osc.stop();
-ctx.close();
 },d);
 
 }catch(e){}
@@ -643,8 +621,6 @@ somAtivado
 ?'🔊 Som Ligado'
 :'🔇 Som Desligado';
 }
-
-/* BOTÕES INFORMATIVOS */
 
 function alterarJogador(){
 
@@ -683,8 +659,6 @@ document.getElementById('btnNivel').innerHTML=
 'Nível: '+texto;
 }
 
-/* START */
-
 function inicializarEEntrarNoJogo(){
 
 tocarSom(500);
@@ -695,8 +669,6 @@ document.getElementById('conteudo-jogo').style.display='flex';
 
 atualizarTextoStatus();
 }
-
-/* ESTADO */
 
 let tabuleiro=['','','','','','','','',''];
 
@@ -723,8 +695,6 @@ const VITORIAS=[
 
 ];
 
-/* STATUS */
-
 function atualizarTextoStatus(){
 
 const status=
@@ -738,8 +708,6 @@ turnoAtual===usuario
 ?'🙋🏻Sua vez'
 :'🤖 Máquina pensando...';
 }
-
-/* JOGADOR */
 
 function jogadaUsuario(e){
 
@@ -771,10 +739,8 @@ usuario==='X'
 
 atualizarTextoStatus();
 
-setTimeout(jogadaIA,500);
+setTimeout(jogadaIA,150);
 }
-
-/* IA */
 
 function jogadaIA(){
 
@@ -829,8 +795,6 @@ turnoAtual=usuario;
 atualizarTextoStatus();
 }
 
-/* MODO INFINITO */
-
 function registrarJogada(jogador,i){
 
 const modo=
@@ -854,8 +818,6 @@ const r=h.shift();
 tabuleiro[r]='';
 }
 }
-
-/* IA AUX */
 
 function aleatoria(){
 
@@ -913,8 +875,6 @@ if(tabuleiro[4]==='')return 4;
 return aleatoria();
 }
 
-/* TABULEIRO */
-
 function atualizarTabuleiro(){
 
 const c=
@@ -953,8 +913,6 @@ c[historicoO[0]]
 }
 }
 
-/* VITÓRIA */
-
 function vitoria(j){
 
 return VITORIAS.some(v=>
@@ -965,8 +923,6 @@ tabuleiro[v[2]]===j
 
 );
 }
-
-/* FINAL */
 
 function verificarFim(j){
 
@@ -1040,8 +996,6 @@ c[i].classList.add('vencedora')
 });
 }
 
-/* MODAL */
-
 function abrirModal(){
 
 document.getElementById('modalFinal')
@@ -1055,8 +1009,6 @@ document.getElementById('modalFinal')
 
 setTimeout(reiniciarJogo,200);
 }
-
-/* RESET */
 
 function reiniciarJogo(){
 
@@ -1079,11 +1031,11 @@ document.getElementById('simboloUsuario').value
 ==='O'
 ){
 
-setTimeout(jogadaIA,500);
+setTimeout(jogadaIA,150);
 }
 }
 
 </script>
 
 </body>
-  </html>
+</html>>
