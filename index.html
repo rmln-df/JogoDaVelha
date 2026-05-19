@@ -79,7 +79,6 @@ font-weight:bold
 
 .btn-jogar-splash{
 padding:16px 55px;
-border:none;
 border-radius:60px;
 font-size:4.3rem;
 font-weight:800;
@@ -88,99 +87,38 @@ color:#ff8;
 cursor:pointer;
 position:relative;
 overflow:hidden;
-background:
-linear-gradient(
-45deg,
-#2563eb,
-#3b82f6,
-#60a5fa
-);
-
+background:linear-gradient(45deg,#2563eb,#3b82f6,#60a5fa);
 background-size:300% 300%;
-
-box-shadow:
-0 0 15px rgba(37,99,235,.5),
-0 0 35px rgba(59,130,246,.4);
-
-animation:
-gradienteBtn 5s ease infinite,
-flutuar 2s ease-in-out infinite;
-
-transition:
-transform .2s ease,
-box-shadow .2s ease;
+animation:gradienteBtn 5s ease infinite,flutuar 2s ease-in-out infinite;
 }
 
 .btn-jogar-splash::before{
-
 content:'';
-
 position:absolute;
-
 top:-50%;
-
 left:-30%;
-
 width:40%;
-
 height:200%;
-
-background:
-rgba(255,255,255,.25);
-
+background:rgba(255,255,255,.25);
 transform:rotate(25deg);
-
 animation:brilho 2.5s linear infinite;
 }
 
-.btn-jogar-splash:active{
-
-transform:scale(.95);
-
-box-shadow:
-0 0 10px rgba(37,99,235,.5),
-0 0 20px rgba(59,130,246,.3);
-}
-
 @keyframes gradienteBtn{
-
-0%{
-background-position:0% 50%;
-}
-
-50%{
-background-position:100% 50%;
-}
-
-100%{
-background-position:0% 50%;
-}
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
 }
 
 @keyframes brilho{
-
-0%{
-left:-40%;
-}
-
-100%{
-left:140%;
-}
+0%{left:-40%}
+100%{left:140%}
 }
 
 @keyframes flutuar{
-
-0%{
-transform:translateY(0px);
-}
-
-50%{
-transform:translateY(-4px);
-}
-
-100%{
-transform:translateY(0px);
-}
+0%{transform:translateY(0px)}
+50%{transform:translateY(-4px)}
+100%{transform:translateY(0px)}
 }
 
 /* APP */
@@ -191,11 +129,6 @@ flex-direction:column;
 align-items:center;
 width:100%;
 max-width:500px
-}
-
-h1{
-font-size:3.5rem;
-margin-bottom:15px
 }
 
 /* PLACAR */
@@ -248,15 +181,10 @@ height:50px;
 border-radius:8px;
 background:#ff4400;
 font-size:1.2rem;
-transition:.2s
-}
-
-.menu-btn{
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-padding:0 10px
+transition:.2s;
+color:#fff;
+font-weight:bold;
+border:none
 }
 
 .menu-btn.ativo{
@@ -277,14 +205,15 @@ width:100%;
 height:108px;
 border-radius:10px;
 background:#ff5500;
-font-size:2.4rem
+font-size:2.4rem;
+border:none;
+color:#fff;
+font-weight:bold
 }
 
 .btn-som{
 background:#0f766e
 }
-
-/* STATUS */
 
 .status{
 margin-bottom:15px;
@@ -299,7 +228,7 @@ font-weight:700
 display:grid;
 grid-template-columns:repeat(3,1fr);
 gap:12px;
-width:95%;
+width:100%;
 max-width:520px;
 aspect-ratio:1/1
 }
@@ -312,7 +241,7 @@ display:flex;
 align-items:center;
 justify-content:center;
 cursor:pointer;
-min-height:100px;
+min-height:95px;
 transition:.2s
 }
 
@@ -320,9 +249,6 @@ transition:.2s
 color:var(--cor-x);
 font-size:3.2rem;
 font-weight:900;
-display:flex;
-align-items:center;
-justify-content:center;
 line-height:1;
 }
 
@@ -343,8 +269,15 @@ animation:piscar .8s infinite alternate ease-in-out
 }
 
 @keyframes piscar{
-from{opacity:.7;transform:scale(.96)}
-to{opacity:.2;transform:scale(.9)}
+from{
+opacity:.7;
+transform:scale(.96)
+}
+
+to{
+opacity:.2;
+transform:scale(.9)
+}
 }
 
 /* MODAL */
@@ -375,15 +308,14 @@ border-radius:20px;
 text-align:center
 }
 
-.modal-content h2{
-margin-bottom:20px
-}
-
 .modal-content button{
 width:100%;
 padding:12px;
 border-radius:12px;
-background:linear-gradient(45deg,#10b981,#059669)
+background:linear-gradient(45deg,#10b981,#059669);
+border:none;
+color:#fff;
+font-weight:bold
 }
 
 </style>
@@ -424,7 +356,7 @@ START
 </span>
 
 <span>
-🤖 IA
+🤖 IA/J2
 <b id="pIA">0</b>
 </span>
 
@@ -438,6 +370,8 @@ START
 <div class="controles">
 
 <div class="coluna-seletores">
+
+<!-- JOGADOR -->
 
 <div class="menu-box">
 
@@ -462,6 +396,8 @@ onchange="alterarJogador();reiniciarJogo()">
 
 </div>
 
+<!-- MODO -->
+
 <div class="menu-box">
 
 <button class="menu-btn ativo" id="btnModo">
@@ -481,9 +417,15 @@ Clássico
 Infinito
 </option>
 
+<option value="dupla">
+2 Jogadores
+</option>
+
 </select>
 
 </div>
+
+<!-- NÍVEL -->
 
 <div class="menu-box">
 
@@ -629,7 +571,7 @@ document.getElementById('simboloUsuario').value;
 
 document.getElementById('btnJogador').innerHTML=
 valor==='X'
-?'Jogador: ❌ '
+?'Jogador: ❌'
 :'Jogador: 🟢';
 }
 
@@ -638,10 +580,14 @@ function alterarModo(){
 const valor=
 document.getElementById('modo').value;
 
+let texto='';
+
+if(valor==='classico')texto='Modo: Clássico';
+if(valor==='infinito')texto='Modo: Infinito';
+if(valor==='dupla')texto='Modo: 2 Jogadores';
+
 document.getElementById('btnModo').innerHTML=
-valor==='classico'
-?'Modo: Clássico'
-:'Modo: Infinito';
+texto;
 }
 
 function alterarNivel(){
@@ -670,6 +616,8 @@ document.getElementById('conteudo-jogo').style.display='flex';
 atualizarTextoStatus();
 }
 
+/* ESTADO */
+
 let tabuleiro=['','','','','','','','',''];
 
 let jogoAtivo=true;
@@ -695,6 +643,8 @@ const VITORIAS=[
 
 ];
 
+/* STATUS */
+
 function atualizarTextoStatus(){
 
 const status=
@@ -703,97 +653,26 @@ document.getElementById('status');
 const usuario=
 document.getElementById('simboloUsuario').value;
 
+const modo=
+document.getElementById('modo').value;
+
+if(modo==='dupla'){
+
+status.innerHTML=
+turnoAtual==='X'
+?'❌ Vez do Jogador 1'
+:'🟢 Vez do Jogador 2';
+
+return;
+}
+
 status.innerHTML=
 turnoAtual===usuario
-?'🙋🏻Sua vez'
+?'🙋🏻 Sua vez'
 :'🤖 Máquina pensando...';
 }
 
-function jogadaUsuario(e){
-
-if(!jogoAtivo)return;
-
-const usuario=
-document.getElementById('simboloUsuario').value;
-
-if(turnoAtual!==usuario)return;
-
-const i=parseInt(e.target.dataset.index);
-
-if(tabuleiro[i]!=='')return;
-
-tocarSom(500);
-
-tabuleiro[i]=usuario;
-
-registrarJogada(usuario,i);
-
-atualizarTabuleiro();
-
-if(verificarFim(usuario))return;
-
-turnoAtual=
-usuario==='X'
-?'O'
-:'X';
-
-atualizarTextoStatus();
-
-setTimeout(jogadaIA,150);
-}
-
-function jogadaIA(){
-
-if(!jogoAtivo)return;
-
-const usuario=
-document.getElementById('simboloUsuario').value;
-
-const maquina=
-usuario==='X'
-?'O'
-:'X';
-
-if(turnoAtual!==maquina)return;
-
-const dificuldade=
-document.getElementById('dificuldade').value;
-
-let escolha=null;
-
-if(dificuldade==='facil'){
-
-escolha=aleatoria();
-
-}else if(dificuldade==='medio'){
-
-escolha=
-Math.random()<.5
-?melhorJogada(maquina,usuario)
-:aleatoria();
-
-}else{
-
-escolha=
-melhorJogada(maquina,usuario);
-}
-
-if(escolha===null)return;
-
-tocarSom(250);
-
-tabuleiro[escolha]=maquina;
-
-registrarJogada(maquina,escolha);
-
-atualizarTabuleiro();
-
-if(verificarFim(maquina))return;
-
-turnoAtual=usuario;
-
-atualizarTextoStatus();
-}
+/* MODO INFINITO */
 
 function registrarJogada(jogador,i){
 
@@ -813,13 +692,84 @@ modo==='infinito'
 h.length>3
 ){
 
-const r=h.shift();
+const removida=h.shift();
 
-tabuleiro[r]='';
+tabuleiro[removida]='';
 }
 }
 
-function aleatoria(){
+/* JOGADOR */
+
+function jogadaUsuario(e){
+
+if(!jogoAtivo)return;
+
+const modo=
+document.getElementById('modo').value;
+
+const usuario=
+document.getElementById('simboloUsuario').value;
+
+if(
+modo!=='dupla'
+&&
+turnoAtual!==usuario
+)return;
+
+const i=parseInt(e.target.dataset.index);
+
+if(tabuleiro[i]!=='')return;
+
+tocarSom(500);
+
+tabuleiro[i]=turnoAtual;
+
+registrarJogada(turnoAtual,i);
+
+atualizarTabuleiro();
+
+if(verificarFim(turnoAtual))return;
+
+if(modo==='dupla'){
+
+turnoAtual=
+turnoAtual==='X'
+?'O'
+:'X';
+
+}else{
+
+turnoAtual=
+usuario==='X'
+?'O'
+:'X';
+
+setTimeout(jogadaIA,150);
+}
+
+atualizarTextoStatus();
+}
+
+/* IA */
+
+function jogadaIA(){
+
+if(
+document.getElementById('modo').value
+==='dupla'
+)return;
+
+if(!jogoAtivo)return;
+
+const usuario=
+document.getElementById('simboloUsuario').value;
+
+const maquina=
+usuario==='X'
+?'O'
+:'X';
+
+if(turnoAtual!==maquina)return;
 
 const livres=[];
 
@@ -827,53 +777,27 @@ tabuleiro.forEach((c,i)=>{
 if(c==='')livres.push(i);
 });
 
-if(!livres.length)return null;
+if(!livres.length)return;
 
-return livres[
-Math.floor(Math.random()*livres.length)
-];
+const escolha=
+livres[Math.floor(Math.random()*livres.length)];
+
+tocarSom(250);
+
+tabuleiro[escolha]=maquina;
+
+registrarJogada(maquina,escolha);
+
+atualizarTabuleiro();
+
+if(verificarFim(maquina))return;
+
+turnoAtual=usuario;
+
+atualizarTextoStatus();
 }
 
-function melhorJogada(maquina,usuario){
-
-for(let i=0;i<9;i++){
-
-if(tabuleiro[i]===''){
-
-tabuleiro[i]=maquina;
-
-if(vitoria(maquina)){
-
-tabuleiro[i]='';
-
-return i;
-}
-
-tabuleiro[i]='';
-}
-}
-
-for(let i=0;i<9;i++){
-
-if(tabuleiro[i]===''){
-
-tabuleiro[i]=usuario;
-
-if(vitoria(usuario)){
-
-tabuleiro[i]='';
-
-return i;
-}
-
-tabuleiro[i]='';
-}
-}
-
-if(tabuleiro[4]==='')return 4;
-
-return aleatoria();
-}
+/* TABULEIRO */
 
 function atualizarTabuleiro(){
 
@@ -913,6 +837,8 @@ c[historicoO[0]]
 }
 }
 
+/* VITÓRIA */
+
 function vitoria(j){
 
 return VITORIAS.some(v=>
@@ -924,16 +850,32 @@ tabuleiro[v[2]]===j
 );
 }
 
+/* FINAL */
+
 function verificarFim(j){
 
 if(vitoria(j)){
 
 jogoAtivo=false;
 
-destacar(j);
+const modo=
+document.getElementById('modo').value;
 
 const usuario=
 document.getElementById('simboloUsuario').value;
+
+if(modo==='dupla'){
+
+if(j==='X'){
+
+document.getElementById('pUser').innerText++;
+
+}else{
+
+document.getElementById('pIA').innerText++;
+}
+
+}else{
 
 if(j===usuario){
 
@@ -943,23 +885,29 @@ document.getElementById('pUser').innerText++;
 
 document.getElementById('pIA').innerText++;
 }
+}
+
+if(modo==='dupla'){
+
+document.getElementById('textoFinal').innerHTML=
+j==='X'
+?'🏆 Jogador 1 venceu!'
+:'🏆 Jogador 2 venceu!';
+
+}else{
 
 document.getElementById('textoFinal').innerHTML=
 j===usuario
 ?'🏆 Você venceu!'
 :'🤖 A IA venceu!';
+}
 
 abrirModal();
 
 return true;
 }
 
-if(
-document.getElementById('modo').value
-==='classico'
-&&
-tabuleiro.every(c=>c!=='')
-){
+if(tabuleiro.every(c=>c!=='')){
 
 jogoAtivo=false;
 
@@ -976,25 +924,7 @@ return true;
 return false;
 }
 
-function destacar(j){
-
-const c=
-document.querySelectorAll('.celula');
-
-VITORIAS.forEach(v=>{
-
-if(
-tabuleiro[v[0]]===j &&
-tabuleiro[v[1]]===j &&
-tabuleiro[v[2]]===j
-){
-
-v.forEach(i=>
-c[i].classList.add('vencedora')
-);
-}
-});
-}
+/* MODAL */
 
 function abrirModal(){
 
@@ -1009,6 +939,8 @@ document.getElementById('modalFinal')
 
 setTimeout(reiniciarJogo,200);
 }
+
+/* RESET */
 
 function reiniciarJogo(){
 
@@ -1029,6 +961,9 @@ atualizarTextoStatus();
 if(
 document.getElementById('simboloUsuario').value
 ==='O'
+&&
+document.getElementById('modo').value
+!=='dupla'
 ){
 
 setTimeout(jogadaIA,150);
@@ -1038,4 +973,4 @@ setTimeout(jogadaIA,150);
 </script>
 
 </body>
-  </html>
+</html> 
