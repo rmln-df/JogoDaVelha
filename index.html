@@ -337,9 +337,7 @@ ULTIMATE PRO
 
 <button class="btn-jogar-splash"
 onclick="inicializarEEntrarNoJogo()">
-
 START
-
 </button>
 
 </div>
@@ -771,16 +769,40 @@ usuario==='X'
 
 if(turnoAtual!==maquina)return;
 
-const livres=[];
+const dificuldade=
+document.getElementById('dificuldade').value;
 
-tabuleiro.forEach((c,i)=>{
-if(c==='')livres.push(i);
-});
+let escolha=null;
 
-if(!livres.length)return;
+/* FÁCIL */
 
-const escolha=
-livres[Math.floor(Math.random()*livres.length)];
+if(dificuldade==='facil'){
+
+escolha=aleatoria();
+
+}
+
+/* MÉDIO */
+
+else if(dificuldade==='medio'){
+
+escolha=
+Math.random()<.5
+?melhorJogada(maquina,usuario)
+:aleatoria();
+
+}
+
+/* DIFÍCIL */
+
+else{
+
+escolha=
+melhorJogada(maquina,usuario);
+
+}
+
+if(escolha===null)return;
 
 tocarSom(250);
 
@@ -795,6 +817,75 @@ if(verificarFim(maquina))return;
 turnoAtual=usuario;
 
 atualizarTextoStatus();
+}
+
+/* IA ALEATÓRIA */
+
+function aleatoria(){
+
+const livres=[];
+
+tabuleiro.forEach((c,i)=>{
+
+if(c===''){
+
+livres.push(i);
+
+}
+});
+
+if(!livres.length)return null;
+
+return livres[
+Math.floor(Math.random()*livres.length)
+];
+}
+
+/* IA INTELIGENTE */
+
+function melhorJogada(maquina,usuario){
+
+for(let i=0;i<9;i++){
+
+if(tabuleiro[i]===''){
+
+tabuleiro[i]=maquina;
+
+if(vitoria(maquina)){
+
+tabuleiro[i]='';
+
+return i;
+}
+
+tabuleiro[i]='';
+}
+}
+
+for(let i=0;i<9;i++){
+
+if(tabuleiro[i]===''){
+
+tabuleiro[i]=usuario;
+
+if(vitoria(usuario)){
+
+tabuleiro[i]='';
+
+return i;
+}
+
+tabuleiro[i]='';
+}
+}
+
+if(tabuleiro[4]===''){
+
+return 4;
+
+}
+
+return aleatoria();
 }
 
 /* TABULEIRO */
@@ -973,4 +1064,4 @@ setTimeout(jogadaIA,150);
 </script>
 
 </body>
-  </html>
+</html>
